@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
-import '../config/constants.dart';
-import '../../model/car_model.dart';
+import '../payment/payment_screen.dart';
+import '../../config/constants.dart';
+import '../../../data/model/truck_model.dart';
 
 class BookTruckScreen extends StatefulWidget {
-  final Car car;
+  final TruckModel car;
 
   const BookTruckScreen({Key? key, required this.car})
       : super(key: key);
@@ -15,10 +16,11 @@ class BookTruckScreen extends StatefulWidget {
 
 class _BookTruckScreenState extends State<BookTruckScreen> {
   int _currentImage = 0;
-
+  int _currentSelectedPriceIndex = 0;
+  final List<int> _periods = [12, 6, 3];
   List<Widget> buildPageIndicator() {
     List<Widget> list = [];
-    for (var i = 0; i < widget.car.images.length; i++) {
+    for (var i = 0; i < widget.car.imageUrl.length; i++) {
       list.add(buildIndicator(i == _currentImage));
     }
     return list;
@@ -178,8 +180,8 @@ class _BookTruckScreenState extends State<BookTruckScreen> {
                               _currentImage = page;
                             });
                           },
-                          children:
-                              widget.car.images.map((path) {
+                          children: widget.car.imageUrl
+                              .map((path) {
                             return Container(
                               padding: const EdgeInsets
                                   .symmetric(
@@ -187,7 +189,7 @@ class _BookTruckScreenState extends State<BookTruckScreen> {
                               ),
                               child: Hero(
                                 tag: widget.car.model,
-                                child: Image.asset(
+                                child: Image.network(
                                   path,
                                   fit: BoxFit.scaleDown,
                                 ),
@@ -196,7 +198,7 @@ class _BookTruckScreenState extends State<BookTruckScreen> {
                           }).toList(),
                         ),
                       ),
-                      widget.car.images.length > 1
+                      widget.car.imageUrl.length > 1
                           ? Container(
                               margin: const EdgeInsets
                                   .symmetric(vertical: 16),
@@ -210,35 +212,40 @@ class _BookTruckScreenState extends State<BookTruckScreen> {
                               ),
                             )
                           : Container(),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 16),
-                        child: Row(
-                          mainAxisAlignment:
-                              MainAxisAlignment.spaceEvenly,
-                          children: [
-                            buildPricePerPeriod(
-                              "12",
-                              "4.350",
-                              true,
-                            ),
-                            const SizedBox(
-                              width: 16,
-                            ),
-                            buildPricePerPeriod(
-                              "6",
-                              "4.800",
-                              false,
-                            ),
-                            const SizedBox(
-                              width: 16,
-                            ),
-                            buildPricePerPeriod(
-                              "1",
-                              "5.100",
-                              false,
-                            ),
-                          ],
+                      SizedBox(
+                        height: 100,
+                        child: ListView.builder(
+                          padding:
+                              const EdgeInsets.symmetric(
+                                  horizontal: 16),
+                          physics:
+                              const BouncingScrollPhysics(),
+                          scrollDirection: Axis.horizontal,
+                          itemCount:
+                              widget.car.price.length,
+                          itemBuilder:
+                              (BuildContext context,
+                                  int index) {
+                            return Padding(
+                              padding: const EdgeInsets
+                                  .symmetric(horizontal: 8),
+                              child: GestureDetector(
+                                onTap: () {
+                                  setState(() {
+                                    _currentSelectedPriceIndex =
+                                        index;
+                                  });
+                                },
+                                child: buildPricePerPeriod(
+                                    _periods[index]
+                                        .toString(),
+                                    widget.car.price[index]
+                                        .toString(),
+                                    index ==
+                                        _currentSelectedPriceIndex),
+                              ),
+                            );
+                          },
                         ),
                       ),
                     ],
@@ -317,9 +324,9 @@ class _BookTruckScreenState extends State<BookTruckScreen> {
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                const Text(
-                  "12 Month",
-                  style: TextStyle(
+                Text(
+                  "${_periods[_currentSelectedPriceIndex]} Month",
+                  style: const TextStyle(
                     color: Colors.black,
                     fontWeight: FontWeight.bold,
                     fontSize: 14,
@@ -329,19 +336,19 @@ class _BookTruckScreenState extends State<BookTruckScreen> {
                   height: 4,
                 ),
                 Row(
-                  children: const [
+                  children: [
                     Text(
-                      "USD 4,350",
-                      style: TextStyle(
+                      "USD ${widget.car.price[_currentSelectedPriceIndex]}",
+                      style: const TextStyle(
                         color: Colors.black,
                         fontWeight: FontWeight.bold,
                         fontSize: 22,
                       ),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       width: 8,
                     ),
-                    Text(
+                    const Text(
                       "per month",
                       style: TextStyle(
                         color: Colors.grey,
@@ -352,24 +359,37 @@ class _BookTruckScreenState extends State<BookTruckScreen> {
                 ),
               ],
             ),
-            Container(
-              height: 50,
-              decoration: BoxDecoration(
-                color: kPrimaryColor,
-                borderRadius: const BorderRadius.all(
-                  Radius.circular(15),
+            InkWell(
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => PaymentScreen(
+                        car: widget.car,
+                        selectedIndex:
+                            _currentSelectedPriceIndex),
+                  ),
+                );
+              },
+              child: Container(
+                height: 50,
+                decoration: BoxDecoration(
+                  color: kPrimaryColor,
+                  borderRadius: const BorderRadius.all(
+                    Radius.circular(15),
+                  ),
                 ),
-              ),
-              child: const Center(
-                child: Padding(
-                  padding:
-                      EdgeInsets.symmetric(horizontal: 24),
-                  child: Text(
-                    "Book this car",
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 16,
+                child: const Center(
+                  child: Padding(
+                    padding: EdgeInsets.symmetric(
+                        horizontal: 24),
+                    child: Text(
+                      "Book this car",
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 16,
+                      ),
                     ),
                   ),
                 ),

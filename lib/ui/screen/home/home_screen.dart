@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
-import '../config/constants.dart';
-import '../config/data.dart';
+import 'widgets/deals_widget.dart';
+import '../../../data/model/dealer_model.dart';
+import '../../config/constants.dart';
+import '../../config/data.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
-import '../widgets/car_widget.dart';
-import '../widgets/dealer_widget.dart';
-import 'available_trucks_screen.dart';
-import 'book_truck_screen.dart';
+import 'widgets/dealer_widget.dart';
+import '../available_trucks/available_trucks_screen.dart';
 
-import '../../model/car_model.dart';
+import '../../../data/model/truck_model.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -22,7 +22,7 @@ class _HomeScreenState extends State<HomeScreen> {
       getNavigationItemList();
   NavigationItem? selectedItem;
 
-  List<Car> cars = getCarList();
+  List<TruckModel> cars = getCarList();
   List<Dealer> dealers = getDealerList();
 
   @override
@@ -150,11 +150,8 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                     SizedBox(
                       height: 280,
-                      child: ListView(
-                        physics:
-                            const BouncingScrollPhysics(),
-                        scrollDirection: Axis.horizontal,
-                        children: buildDeals(),
+                      child: DealsWidget(
+                        cards: cars,
                       ),
                     ),
                     GestureDetector(
@@ -204,7 +201,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                   Text(
                                     "Long and short distance transportation",
                                     style: TextStyle(
-                                      fontSize: 16,
+                                      fontSize: 13,
                                       color: Colors.white,
                                     ),
                                   ),
@@ -275,11 +272,14 @@ class _HomeScreenState extends State<HomeScreen> {
                       height: 150,
                       margin:
                           const EdgeInsets.only(bottom: 16),
-                      child: ListView(
-                        physics:
-                            const BouncingScrollPhysics(),
+                      child: ListView.builder(
                         scrollDirection: Axis.horizontal,
-                        children: buildDealers(),
+                        itemCount: dealers.length,
+                        itemBuilder: (BuildContext context,
+                            int index) {
+                          return buildDealer(
+                              dealers[index], index);
+                        },
                       ),
                     ),
                   ],
@@ -289,89 +289,59 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
         ],
       ),
-      bottomNavigationBar: Container(
-        height: 70,
-        decoration: const BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(30),
-              topRight: Radius.circular(30),
-            )),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: buildNavigationItems(),
-        ),
-      ),
+      bottomNavigationBar: buildBottomNavigationBar(),
     );
   }
 
-  List<Widget> buildDeals() {
-    List<Widget> list = [];
-    for (var i = 0; i < cars.length; i++) {
-      list.add(GestureDetector(
-          onTap: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                  builder: (context) =>
-                      BookTruckScreen(car: cars[i])),
-            );
-          },
-          child: buildCar(cars[i], i)));
-    }
-    return list;
-  }
-
-  List<Widget> buildDealers() {
-    List<Widget> list = [];
-    for (var i = 0; i < dealers.length; i++) {
-      list.add(buildDealer(dealers[i], i));
-    }
-    return list;
-  }
-
-  List<Widget> buildNavigationItems() {
-    List<Widget> list = [];
-    for (var navigationItem in navigationItems) {
-      list.add(buildNavigationItem(navigationItem));
-    }
-    return list;
-  }
-
-  Widget buildNavigationItem(NavigationItem item) {
-    return GestureDetector(
-      onTap: () {
-        setState(() {
-          selectedItem = item;
-        });
-      },
-      child: SizedBox(
-        width: 50,
-        child: Stack(
-          children: <Widget>[
-            selectedItem == item
-                ? Center(
-                    child: Container(
-                      height: 50,
-                      width: 50,
-                      decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                        color: kPrimaryColorShadow,
-                      ),
+  Container buildBottomNavigationBar() {
+    return Container(
+      height: 70,
+      decoration: const BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(30),
+            topRight: Radius.circular(30),
+          )),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: navigationItems
+            .map((item) => GestureDetector(
+                  onTap: () {
+                    setState(() {
+                      selectedItem = item;
+                    });
+                  },
+                  child: SizedBox(
+                    width: 50,
+                    child: Stack(
+                      children: [
+                        selectedItem == item
+                            ? Center(
+                                child: Container(
+                                  height: 50,
+                                  width: 50,
+                                  decoration: BoxDecoration(
+                                    shape: BoxShape.circle,
+                                    color:
+                                        kPrimaryColorShadow,
+                                  ),
+                                ),
+                              )
+                            : const SizedBox(),
+                        Center(
+                          child: Icon(
+                            item.iconData,
+                            color: selectedItem == item
+                                ? kPrimaryColor
+                                : Colors.grey[400],
+                            size: 24,
+                          ),
+                        )
+                      ],
                     ),
-                  )
-                : Container(),
-            Center(
-              child: Icon(
-                item.iconData,
-                color: selectedItem == item
-                    ? kPrimaryColor
-                    : Colors.grey[400],
-                size: 24,
-              ),
-            )
-          ],
-        ),
+                  ),
+                ))
+            .toList(),
       ),
     );
   }

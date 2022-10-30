@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../config/data.dart';
+import '../../../../data/model/dealer_model.dart';
 
 Widget buildDealer(Dealer dealer, int index) {
   return Container(
@@ -15,11 +15,11 @@ Widget buildDealer(Dealer dealer, int index) {
     width: 150,
     child: Column(
       mainAxisAlignment: MainAxisAlignment.start,
-      children: <Widget>[
+      children: [
         Container(
           decoration: BoxDecoration(
             image: DecorationImage(
-              image: AssetImage(dealer.image),
+              image: NetworkImage(dealer.image),
               fit: BoxFit.cover,
             ),
             borderRadius: const BorderRadius.all(

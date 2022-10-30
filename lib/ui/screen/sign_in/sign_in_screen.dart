@@ -1,47 +1,17 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import '../../widgets/auth_button.dart';
+
+import '../../../cubit/auth_cubit/auth_cubit.dart';
 
 class SignInScreen extends StatelessWidget {
   SignInScreen({Key? key}) : super(key: key);
-
-  final FirebaseAuth _auth = FirebaseAuth.instance;
 
   final TextEditingController _emailController =
       TextEditingController();
 
   final TextEditingController _passwordController =
       TextEditingController();
-
-  void _signIn(BuildContext context) async {
-    try {
-      final User? user =
-          (await _auth.signInWithEmailAndPassword(
-                  email: _emailController.text.trim(),
-                  password: _passwordController.text))
-              .user;
-      if (user != null) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-            content: Text("Registration Successful"),
-          ),
-        );
-        Navigator.of(context).pushNamed('/home');
-      } else {
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-            content: Text("Registration Failed"),
-          ),
-        );
-      }
-    } catch (e) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text(e.toString().split(']')[1]),
-        ),
-      );
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -66,7 +36,7 @@ class SignInScreen extends StatelessWidget {
             padding: const EdgeInsets.only(
                 top: 35, left: 20, right: 30),
             child: Column(
-              children: <Widget>[
+              children: [
                 TextField(
                   keyboardType: TextInputType.emailAddress,
                   controller: _emailController,
@@ -90,7 +60,7 @@ class SignInScreen extends StatelessWidget {
                       TextInputType.visiblePassword,
                   controller: _passwordController,
                   decoration: const InputDecoration(
-                      labelText: 'Password',
+                      labelText: 'PASSWORD',
                       labelStyle: TextStyle(
                           fontFamily: 'Montserrat',
                           fontWeight: FontWeight.bold,
@@ -120,59 +90,16 @@ class SignInScreen extends StatelessWidget {
                 const SizedBox(
                   height: 40,
                 ),
-                SizedBox(
-                  height: 40,
-                  child: ElevatedButton(
-                    onPressed: () async {
-                      if (_emailController
-                              .text.isNotEmpty &&
-                          _passwordController
-                              .text.isNotEmpty &&
-                          _emailController.text
-                              .contains('@') &&
-                          _emailController.text
-                              .contains('.')) {
-                        _signIn(context);
-                      } else {
-                        if (!_emailController.text
-                                .contains('@') ||
-                            !_emailController.text
-                                .contains('.')) {
-                          ScaffoldMessenger.of(context)
-                              .showSnackBar(const SnackBar(
-                                  content: Text(
-                                      'Please enter a valid email address')));
-                        } else {
-                          ScaffoldMessenger.of(context)
-                              .showSnackBar(const SnackBar(
-                            content: Text(
-                                'Please fill in all the fields'),
-                          ));
-                        }
-                      }
-                    },
-                    style: ElevatedButton.styleFrom(
-                      shadowColor: Colors.greenAccent,
-                      foregroundColor: Colors.white,
-                      backgroundColor: Colors.black,
-                      shape: const RoundedRectangleBorder(
-                        borderRadius: BorderRadius.all(
-                            Radius.circular(20)),
-                      ),
-                      elevation: 5,
-                    ),
-                    child: const Center(
-                      child: Text(
-                        'Sign In',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold,
-                          fontFamily: 'Montserrat',
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
+                AuthButton(
+                    onPressed: (() {
+                      BlocProvider.of<AuthCubit>(context)
+                          .signIn(_emailController.text,
+                              _passwordController.text);
+                    }),
+                    text: "Sign In",
+                    emailController: _emailController,
+                    passwordController:
+                        _passwordController),
                 const SizedBox(
                   height: 15,
                 ),

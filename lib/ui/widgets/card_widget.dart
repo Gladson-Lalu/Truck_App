@@ -1,20 +1,17 @@
 import 'package:flutter/material.dart';
 import '../config/constants.dart';
 
-import '../../model/car_model.dart';
+import '../../data/model/truck_model.dart';
 
-Widget buildCar(Car car, int? index) {
+Widget buildTruckCard(TruckModel car) {
   return Container(
     decoration: const BoxDecoration(
       color: Colors.white,
       borderRadius: BorderRadius.all(
-        Radius.circular(15),
+        Radius.circular(10),
       ),
     ),
     padding: const EdgeInsets.all(16),
-    margin: EdgeInsets.only(
-        right: index != null ? 16 : 0,
-        left: index == 0 ? 16 : 0),
     width: 220,
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -50,9 +47,15 @@ Widget buildCar(Car car, int? index) {
           child: Center(
             child: Hero(
               tag: car.model,
-              child: Image.asset(
-                car.images[0],
-                fit: BoxFit.fitWidth,
+              child: ClipRRect(
+                borderRadius: const BorderRadius.all(
+                  Radius.circular(6),
+                ),
+                child: Image.network(
+                  car.imageUrl[0],
+                  fit: BoxFit.cover,
+                  height: 140,
+                ),
               ),
             ),
           ),

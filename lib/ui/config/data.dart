@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
-import '../../model/car_model.dart';
+import '../../data/model/dealer_model.dart';
+import '../../data/model/truck_model.dart';
 
 class NavigationItem {
   IconData iconData;
@@ -17,151 +18,127 @@ List<NavigationItem> getNavigationItemList() {
   ];
 }
 
-List<Car> getCarList() {
-  return <Car>[
-    Car(
+List<TruckModel> getCarList() {
+  return <TruckModel>[
+    TruckModel(
       "LCV",
       "KL 21 V 4665",
-      2580,
+      [2580, 2600, 2620],
       "Available Now",
       [
-        "assets/images/mahindra-jayo.jpg",
-        "assets/images/mahindra-jayo.jpg",
-        "assets/images/mahindra-jayo.jpg",
+        "https://cvimg1.cardekho.com/p/630x420/in/eicher/pro-2049/eicher-pro-2049-47454.jpg"
       ],
     ),
-    Car(
+    TruckModel(
       "Truck",
       "KL 56 V 3456",
-      3580,
+      [3580, 3600, 3620],
       "Available Now",
       [
-        "assets/images/mahindra-jayo.jpg",
+        "https://cvimg1.cardekho.com/p/630x420/in/eicher/pro-2049/eicher-pro-2049-47454.jpg"
       ],
     ),
-    Car(
+    TruckModel(
       "Container",
       "KL 10 V 4323",
-      1100,
+      [4580, 4600, 4620],
       "Available Now",
       [
-        "assets/images/mahindra-jayo.jpg",
-        "assets/images/mahindra-jayo.jpg",
-        "assets/images/mahindra-jayo.jpg",
-        "assets/images/mahindra-jayo.jpg",
+        "https://cvimg1.cardekho.com/p/630x420/in/eicher/pro-2049/eicher-pro-2049-47454.jpg"
       ],
     ),
-    Car(
+    TruckModel(
       "Tanker",
       "KL 12 B 4768",
-      2200,
+      [5580, 5600, 5620],
       "Available Now",
       [
-        "assets/images/mahindra-jayo.jpg",
-        "assets/images/mahindra-jayo.jpg",
-        "assets/images/mahindra-jayo.jpg",
+        "https://cvimg1.cardekho.com/p/630x420/in/eicher/pro-2049/eicher-pro-2049-47454.jpg"
       ],
     ),
-    Car(
+    TruckModel(
       "LCV",
       "KA 15 V 2313",
-      3400,
+      [1580, 1600, 1620],
       "Available Now",
       [
-        "assets/images/mahindra-jayo.jpg",
-        "assets/images/mahindra-jayo.jpg",
-        "assets/images/mahindra-jayo.jpg",
+        "https://cvimg1.cardekho.com/p/630x420/in/eicher/pro-2049/eicher-pro-2049-47454.jpg"
       ],
     ),
-    Car(
+    TruckModel(
       "Tanker",
       "TN 23 W 3456",
-      900,
+      [900, 1000, 1100],
       "Available Now",
       [
-        "assets/images/mahindra-jayo.jpg",
+        "https://cvimg1.cardekho.com/p/630x420/in/eicher/pro-2049/eicher-pro-2049-47454.jpg"
       ],
     ),
-    Car(
+    TruckModel(
       "Trailer",
       "KL 11 D 1289",
-      4200,
+      [4000, 4100, 4200],
       "Available Now",
       [
-        "assets/images/mahindra-jayo.jpg",
-        "assets/images/mahindra-jayo.jpg",
-        "assets/images/mahindra-jayo.jpg",
-        "assets/images/mahindra-jayo.jpg",
-        "assets/images/mahindra-jayo.jpg",
+        "https://cvimg1.cardekho.com/p/630x420/in/eicher/pro-2049/eicher-pro-2049-47454.jpg"
       ],
     ),
-    Car(
+    TruckModel(
       "Truck",
       "TN 12 E 2897",
-      2300,
+      [5000, 5100, 5200],
       "Available Now",
       [
-        "assets/images/mahindra-jayo.jpg",
-        "assets/images/mahindra-jayo.jpg",
+        "https://cvimg1.cardekho.com/p/630x420/in/eicher/pro-2049/eicher-pro-2049-47454.jpg"
       ],
     ),
-    Car(
+    TruckModel(
       "Tanker",
       "KL 14 V 3456",
-      1450,
+      [6000, 6100, 6200],
       "Available Now",
       [
-        "assets/images/mahindra-jayo.jpg",
-        "assets/images/mahindra-jayo.jpg",
+        "https://cvimg1.cardekho.com/p/630x420/in/eicher/pro-2049/eicher-pro-2049-47454.jpg"
       ],
     ),
-    Car(
+    TruckModel(
       "LCV",
       "TN 34 F 7845",
-      900,
+      [7000, 7100, 7200],
       "Available",
       [
-        "assets/images/mahindra-jayo.jpg",
+        "https://cvimg1.cardekho.com/p/630x420/in/eicher/pro-2049/eicher-pro-2049-47454.jpg"
       ],
     ),
-    Car(
+    TruckModel(
       "Container",
       "KA 56 E 3423",
-      900,
+      [8000, 8100, 8200],
       "Available",
       [
-        "assets/images/mahindra-jayo.jpg",
+        "https://cvimg1.cardekho.com/p/630x420/in/eicher/pro-2049/eicher-pro-2049-47454.jpg"
       ],
     ),
-    Car(
+    TruckModel(
       "LCV",
       "KL 04 V 3587",
-      900,
-      "Available Tommarow",
+      [9000, 9100, 9200],
+      "Available Tomorrow",
       [
-        "assets/images/mahindra-jayo.jpg",
+        "https://cvimg1.cardekho.com/p/630x420/in/eicher/pro-2049/eicher-pro-2049-47454.jpg",
+        "https://img.freepik.com/premium-vector/semi-trailer-truck-logo_74218-339.jpg"
       ],
     ),
-    Car(
+    TruckModel(
       "Truck",
       "KL 14 R 1276",
-      1200,
+      [1000, 1100, 1200],
       "Not Now",
       [
-        "assets/images/mahindra-jayo.jpg",
-        "assets/images/mahindra-jayo.jpg",
-        "assets/images/mahindra-jayo.jpg",
+        "https://cvimg1.cardekho.com/p/630x420/in/eicher/pro-2049/eicher-pro-2049-47454.jpg"
       ],
     ),
   ];
-}
-
-class Dealer {
-  String name;
-  int offers;
-  String image;
-
-  Dealer(this.name, this.offers, this.image);
 }
 
 List<Dealer> getDealerList() {
@@ -169,31 +146,17 @@ List<Dealer> getDealerList() {
     Dealer(
       "Truck",
       42,
-      "assets\images\250-2506178_full-truck-load-icon-hd-png-download.png",
+      "https://img.freepik.com/premium-vector/semi-trailer-truck-logo_74218-339.jpg",
     ),
     Dealer(
       "Trailer",
       68,
-      "assets\images\250-2506178_full-truck-load-icon-hd-png-download.png",
+      "https://img.freepik.com/premium-vector/semi-trailer-truck-logo_74218-339.jpg",
     ),
     Dealer(
       "LCV",
       10,
-      "assets\images\250-2506178_full-truck-load-icon-hd-png-download.png",
+      "https://img.freepik.com/premium-vector/semi-trailer-truck-logo_74218-339.jpg",
     ),
-  ];
-}
-
-class Filter {
-  String name;
-
-  Filter(this.name);
-}
-
-List<Filter> getFilterList() {
-  return <Filter>[
-    Filter("Best Match"),
-    Filter("Highest Price"),
-    Filter("Lowest Price"),
   ];
 }
