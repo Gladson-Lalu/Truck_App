@@ -89,11 +89,11 @@ class AuthCubit extends Cubit<AuthState> {
   }
 
   Future<void> checkIfUserIsLoggedIn() async {
+    emit(const AuthLoading());
     final String? email = _prefs.getString('email');
     final String? password = _prefs.getString('password');
 
     if (email != null && password != null) {
-      emit(const AuthLoading());
       try {
         await _authService.signIn(email, password);
         final UserModel _userModel =
@@ -103,6 +103,8 @@ class AuthCubit extends Cubit<AuthState> {
         emit(AuthFailure(
             e.toString().split('Exception: ')[1]));
       }
+    } else {
+      emit(const AuthFailure(''));
     }
   }
 

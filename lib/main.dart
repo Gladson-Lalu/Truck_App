@@ -1,5 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:truck_app/ui/screen/splash/splash_screen.dart';
 import 'cubit/payment/payment_cubit.dart';
 import 'cubit/order_history/order_history_cubit.dart';
 import 'data/services/auth_service.dart';
@@ -48,7 +49,7 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
           primarySwatch: Colors.blue,
         ),
-        home: SignInScreen(),
+        home: const SplashScreen(),
         debugShowCheckedModeBanner: false,
         routes: <String, WidgetBuilder>{
           '/signIn': (BuildContext context) =>
