@@ -403,54 +403,49 @@ class _BookTruckScreenState extends State<BookTruckScreen> {
 
   Widget buildPricePerPeriod(
       String months, String price, bool selected) {
-    return Expanded(
-      child: Container(
-        height: 110,
-        padding: const EdgeInsets.all(16),
-        decoration: BoxDecoration(
-          color: selected ? kPrimaryColor : Colors.white,
-          borderRadius: const BorderRadius.all(
-            Radius.circular(15),
-          ),
-          border: Border.all(
-            color: Colors.grey,
-            width: selected ? 0 : 1,
-          ),
+    return Container(
+      height: 110,
+      padding: const EdgeInsets.all(16),
+      decoration: BoxDecoration(
+        color: selected ? kPrimaryColor : Colors.white,
+        borderRadius: const BorderRadius.all(
+          Radius.circular(15),
         ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              months + " Month",
-              style: TextStyle(
-                color:
-                    selected ? Colors.white : Colors.black,
-                fontSize: 14,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            Expanded(
-              child: Container(),
-            ),
-            Text(
-              price,
-              style: TextStyle(
-                color:
-                    selected ? Colors.white : Colors.black,
-                fontSize: 24,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            Text(
-              "USD",
-              style: TextStyle(
-                color:
-                    selected ? Colors.white : Colors.black,
-                fontSize: 14,
-              ),
-            ),
-          ],
+        border: Border.all(
+          color: Colors.grey,
+          width: selected ? 0 : 1,
         ),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            months + " Month",
+            style: TextStyle(
+              color: selected ? Colors.white : Colors.black,
+              fontSize: 14,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          Expanded(
+            child: Container(),
+          ),
+          Text(
+            price,
+            style: TextStyle(
+              color: selected ? Colors.white : Colors.black,
+              fontSize: 24,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          Text(
+            "USD",
+            style: TextStyle(
+              color: selected ? Colors.white : Colors.black,
+              fontSize: 14,
+            ),
+          ),
+        ],
       ),
     );
   }

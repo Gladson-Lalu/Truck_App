@@ -1,4 +1,4 @@
-part of 'truck_data_cubit.dart';
+part of '../truck/truck_data_cubit.dart';
 
 @immutable
 abstract class TruckDataState {

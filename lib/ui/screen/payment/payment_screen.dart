@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import '../../../cubit/payment/payment_cubit.dart';
+import '../../../data/model/order_model.dart';
 import '../../../data/model/truck_model.dart';
 import '../../config/constants.dart';
 
@@ -323,26 +326,105 @@ class PaymentScreen extends StatelessWidget {
                   ),
                   child: InkWell(
                     onTap: () {
-                      // Navigator.push(
-                      //   context,
-                      //   MaterialPageRoute(
-                      //     // builder: (context) => const PaymentSuccess(),
-                      //   ),
-                      // );
+                      BlocProvider.of<PaymentCubit>(context)
+                              .state is PaymentLoading
+                          ? null
+                          : BlocProvider.of<PaymentCubit>(
+                                  context)
+                              .paymentSuccess(OrderModel(
+                              modelNumber: car.model,
+                              brand: car.brand,
+                              date: DateTime.now(),
+                              imageUrl: car.imageUrl[0],
+                              totalAmount:
+                                  total.toStringAsFixed(2),
+                            ));
                     },
                     borderRadius: const BorderRadius.all(
                       Radius.circular(15),
                     ),
-                    child: Center(
-                      child: Text(
-                        "Pay " +
-                            "\$${total.toStringAsFixed(2)}",
-                        style: const TextStyle(
-                          fontSize: 16,
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
+                    child: BlocConsumer<PaymentCubit,
+                        PaymentState>(
+                      listener: (context, state) {
+                        if (state is PaymentSuccess) {
+                          showDialog(
+                            context: context,
+                            builder: ((context) {
+                              return AlertDialog(
+                                shape:
+                                    RoundedRectangleBorder(
+                                  borderRadius:
+                                      BorderRadius.circular(
+                                          15),
+                                ),
+                                elevation: 10,
+                                scrollable: true,
+                                title: const Text(
+                                  "Payment Successful",
+                                  style: TextStyle(
+                                    fontSize: 20,
+                                    fontWeight:
+                                        FontWeight.bold,
+                                  ),
+                                ),
+                                content: const Center(
+                                  child: Icon(
+                                    Icons.check_circle,
+                                    color: Colors.green,
+                                    size: 80,
+                                  ),
+                                ),
+                                actionsAlignment:
+                                    MainAxisAlignment
+                                        .center,
+                                actions: [
+                                  TextButton(
+                                    onPressed: () {
+                                      Navigator.of(context)
+                                          .pushNamedAndRemoveUntil(
+                                              '/home',
+                                              (route) =>
+                                                  false);
+                                    },
+                                    child: const Text(
+                                      "OK",
+                                      style: TextStyle(
+                                        fontSize: 16,
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              );
+                            }),
+                          );
+                        }
+                      },
+                      builder: (context, state) {
+                        if (state is PaymentLoading) {
+                          return const Center(
+                            child: SizedBox(
+                              height: 30,
+                              width: 30,
+                              child:
+                                  CircularProgressIndicator(
+                                color: Colors.white,
+                                strokeWidth: 2,
+                              ),
+                            ),
+                          );
+                        } else {
+                          return Center(
+                            child: Text(
+                              "Pay \$${total.toStringAsFixed(2)}",
+                              style: const TextStyle(
+                                fontSize: 16,
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          );
+                        }
+                      },
                     ),
                   ),
                 ),

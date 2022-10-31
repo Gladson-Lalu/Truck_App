@@ -14,7 +14,7 @@ class AuthLoading extends AuthState {
 }
 
 class AuthSuccess extends AuthState {
-  final User user;
+  final UserModel user;
   const AuthSuccess(
     this.user,
   );

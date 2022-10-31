@@ -1,21 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../cubit/auth_cubit/auth_cubit.dart';
+import '../../../../cubit/auth_cubit/auth_cubit.dart';
 
-class AuthButton extends StatelessWidget {
-  const AuthButton({
+class SignInButton extends StatelessWidget {
+  const SignInButton({
     Key? key,
-    required this.onPressed,
-    required this.text,
     required this.emailController,
     required this.passwordController,
   }) : super(key: key);
 
   final TextEditingController emailController;
   final TextEditingController passwordController;
-  final VoidCallback onPressed;
-  final String text;
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +26,9 @@ class AuthButton extends StatelessWidget {
                     passwordController.text.isNotEmpty &&
                     emailController.text.contains('@') &&
                     emailController.text.contains('.')) {
-                  onPressed();
+                  BlocProvider.of<AuthCubit>(context)
+                      .signIn(emailController.text,
+                          passwordController.text);
                 } else {
                   if (!emailController.text.contains('@') ||
                       !emailController.text.contains('.')) {
@@ -83,9 +81,9 @@ class AuthButton extends StatelessWidget {
                     )),
               );
             } else {
-              return Text(
-                text,
-                style: const TextStyle(
+              return const Text(
+                'Sign In',
+                style: TextStyle(
                     color: Colors.white,
                     fontWeight: FontWeight.bold,
                     fontFamily: 'Montserrat'),

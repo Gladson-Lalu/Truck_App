@@ -1,17 +1,29 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../widgets/auth_button.dart';
+import 'package:truck_app/cubit/auth_cubit/auth_cubit.dart';
 
-import '../../../cubit/auth_cubit/auth_cubit.dart';
+import 'widgets/sign_in_button.dart';
 
-class SignInScreen extends StatelessWidget {
-  SignInScreen({Key? key}) : super(key: key);
+class SignInScreen extends StatefulWidget {
+  const SignInScreen({Key? key}) : super(key: key);
 
+  @override
+  State<SignInScreen> createState() => _SignInScreenState();
+}
+
+class _SignInScreenState extends State<SignInScreen> {
   final TextEditingController _emailController =
       TextEditingController();
 
   final TextEditingController _passwordController =
       TextEditingController();
+  @override
+  void initState() {
+    super.initState();
+    BlocProvider.of<AuthCubit>(context)
+        .checkIfUserIsLoggedIn();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -90,13 +102,7 @@ class SignInScreen extends StatelessWidget {
                 const SizedBox(
                   height: 40,
                 ),
-                AuthButton(
-                    onPressed: (() {
-                      BlocProvider.of<AuthCubit>(context)
-                          .signIn(_emailController.text,
-                              _passwordController.text);
-                    }),
-                    text: "Sign In",
+                SignInButton(
                     emailController: _emailController,
                     passwordController:
                         _passwordController),

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
-import '../../../../data/model/truck_model.dart';
-import '../../../widgets/card_widget.dart';
-import '../../book_truck/book_truck_screen.dart';
+import '../../../../../../data/model/truck_model.dart';
+import '../../../../../widgets/card_widget.dart';
+import '../../../../book_truck/book_truck_screen.dart';
 
 class DealsWidget extends StatelessWidget {
   const DealsWidget({

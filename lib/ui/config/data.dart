@@ -12,8 +12,8 @@ class NavigationItem {
 List<NavigationItem> getNavigationItemList() {
   return <NavigationItem>[
     NavigationItem(Icons.home),
-    NavigationItem(Icons.calendar_today),
-    NavigationItem(Icons.notifications),
+    NavigationItem(Icons.search),
+    NavigationItem(Icons.history),
     NavigationItem(Icons.person),
   ];
 }
