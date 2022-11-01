@@ -23,6 +23,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
 
   final TextEditingController _addressController =
       TextEditingController();
+  final TextEditingController _confirmPasswordController =
+      TextEditingController();
 
   String? _selectedType;
 
@@ -150,6 +152,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       ),
                     ),
                   ),
+                  const SizedBox(
+                    height: 20,
+                  ),
                   TextField(
                     controller: _passwordController,
                     obscureText: true,
@@ -157,6 +162,22 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         TextInputType.visiblePassword,
                     decoration: const InputDecoration(
                         labelText: 'PASSWORD',
+                        labelStyle: TextStyle(
+                            fontFamily: 'Montserrat',
+                            fontWeight: FontWeight.bold,
+                            color: Colors.grey),
+                        focusedBorder: UnderlineInputBorder(
+                          borderSide: BorderSide(
+                              color: Colors.green),
+                        )),
+                  ),
+                  TextField(
+                    controller: _confirmPasswordController,
+                    obscureText: true,
+                    keyboardType:
+                        TextInputType.visiblePassword,
+                    decoration: const InputDecoration(
+                        labelText: 'CONFIRM PASSWORD',
                         labelStyle: TextStyle(
                             fontFamily: 'Montserrat',
                             fontWeight: FontWeight.bold,
@@ -177,6 +198,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       nameController: _nameController,
                       phoneController: _phoneController,
                       addressController: _addressController,
+                      conformPasswordController:
+                          _confirmPasswordController,
                       userType: _selectedType),
                   const SizedBox(
                     height: 15,

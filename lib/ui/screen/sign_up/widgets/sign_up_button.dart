@@ -9,6 +9,7 @@ class SignUpButton extends StatelessWidget {
   final TextEditingController nameController;
   final TextEditingController phoneController;
   final TextEditingController addressController;
+  final TextEditingController conformPasswordController;
   final String? userType;
   const SignUpButton({
     Key? key,
@@ -18,6 +19,7 @@ class SignUpButton extends StatelessWidget {
     required this.phoneController,
     required this.addressController,
     required this.userType,
+    required this.conformPasswordController,
   }) : super(key: key);
 
   @override
@@ -34,17 +36,40 @@ class SignUpButton extends StatelessWidget {
                     nameController.text.isNotEmpty &&
                     phoneController.text.isNotEmpty &&
                     addressController.text.isNotEmpty &&
+                    conformPasswordController
+                        .text.isNotEmpty &&
                     userType != null &&
                     emailController.text.contains('@') &&
                     emailController.text.contains('.')) {
-                  BlocProvider.of<AuthCubit>(context)
-                      .signUp(
-                          emailController.text,
-                          passwordController.text,
-                          nameController.text,
-                          phoneController.text,
-                          addressController.text,
-                          userType!);
+                  if (passwordController.text ==
+                      conformPasswordController.text) {
+                    if (validatePhoneNumber(
+                        phoneController.text)) {
+                      BlocProvider.of<AuthCubit>(context)
+                          .signUp(
+                              emailController.text,
+                              passwordController.text,
+                              nameController.text,
+                              phoneController.text,
+                              addressController.text,
+                              userType!);
+                    } else {
+                      ScaffoldMessenger.of(context)
+                          .showSnackBar(
+                        const SnackBar(
+                          content:
+                              Text('Invalid phone number'),
+                        ),
+                      );
+                    }
+                  } else {
+                    ScaffoldMessenger.of(context)
+                        .showSnackBar(
+                      const SnackBar(
+                        content: Text('Password not match'),
+                      ),
+                    );
+                  }
                 } else {
                   if (!emailController.text.contains('@') ||
                       !emailController.text.contains('.')) {
@@ -109,5 +134,10 @@ class SignUpButton extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  bool validatePhoneNumber(String value) {
+    final phoneExp = RegExp(r'(^(?:[+0]9)?[0-9]{10,12}$)');
+    return phoneExp.hasMatch(value);
   }
 }
