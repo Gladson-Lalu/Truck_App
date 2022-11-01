@@ -21,15 +21,6 @@ List<NavigationItem> getNavigationItemList() {
 List<TruckModel> getCarList() {
   return <TruckModel>[
     TruckModel(
-      "LCV",
-      "KL 21 V 4665",
-      [2580, 2600, 2620],
-      "Available Now",
-      [
-        "https://cvimg1.cardekho.com/p/630x420/in/eicher/pro-2049/eicher-pro-2049-47454.jpg"
-      ],
-    ),
-    TruckModel(
       "Truck",
       "KL 56 V 3456",
       [3580, 3600, 3620],
@@ -44,7 +35,7 @@ List<TruckModel> getCarList() {
       [4580, 4600, 4620],
       "Available Now",
       [
-        "https://cvimg1.cardekho.com/p/630x420/in/eicher/pro-2049/eicher-pro-2049-47454.jpg"
+        "https://img.freepik.com/free-photo/truck-long-vehicle-ready-delivering-transport_342744-1294.jpg"
       ],
     ),
     TruckModel(
@@ -53,7 +44,7 @@ List<TruckModel> getCarList() {
       [5580, 5600, 5620],
       "Available Now",
       [
-        "https://cvimg1.cardekho.com/p/630x420/in/eicher/pro-2049/eicher-pro-2049-47454.jpg"
+        "https://img.freepik.com/premium-photo/tanker-truck-3d-rendering-isolated-white-background_667573-4.jpg"
       ],
     ),
     TruckModel(
@@ -62,7 +53,7 @@ List<TruckModel> getCarList() {
       [1580, 1600, 1620],
       "Available Now",
       [
-        "https://cvimg1.cardekho.com/p/630x420/in/eicher/pro-2049/eicher-pro-2049-47454.jpg"
+        "https://s1.1zoom.me/big0/344/Trucks_Piaggio_Porter_700_Red_White_background_533565_1365x1024.jpg"
       ],
     ),
     TruckModel(
@@ -71,7 +62,7 @@ List<TruckModel> getCarList() {
       [900, 1000, 1100],
       "Available Now",
       [
-        "https://cvimg1.cardekho.com/p/630x420/in/eicher/pro-2049/eicher-pro-2049-47454.jpg"
+        "https://img.freepik.com/premium-photo/tanker-truck-3d-rendering-isolated-white-background_667573-4.jpg"
       ],
     ),
     TruckModel(
@@ -80,7 +71,7 @@ List<TruckModel> getCarList() {
       [4000, 4100, 4200],
       "Available Now",
       [
-        "https://cvimg1.cardekho.com/p/630x420/in/eicher/pro-2049/eicher-pro-2049-47454.jpg"
+        "https://truckguru.co.in/truck-images/platform-trailor.jpg"
       ],
     ),
     TruckModel(
@@ -98,7 +89,7 @@ List<TruckModel> getCarList() {
       [6000, 6100, 6200],
       "Available Now",
       [
-        "https://cvimg1.cardekho.com/p/630x420/in/eicher/pro-2049/eicher-pro-2049-47454.jpg"
+        "https://img.freepik.com/premium-photo/tanker-truck-3d-rendering-isolated-white-background_667573-4.jpg"
       ],
     ),
     TruckModel(
@@ -107,7 +98,7 @@ List<TruckModel> getCarList() {
       [7000, 7100, 7200],
       "Available",
       [
-        "https://cvimg1.cardekho.com/p/630x420/in/eicher/pro-2049/eicher-pro-2049-47454.jpg"
+        "https://img.freepik.com/premium-photo/arriving-white-truck-road-rural-landscape-sunset_93200-1619.jpg"
       ],
     ),
     TruckModel(
@@ -125,7 +116,7 @@ List<TruckModel> getCarList() {
       [9000, 9100, 9200],
       "Available Tomorrow",
       [
-        "https://cvimg1.cardekho.com/p/630x420/in/eicher/pro-2049/eicher-pro-2049-47454.jpg",
+        "https://5.imimg.com/data5/TV/OP/BS/SELLER-87053405/piaggio-porter-1000-4-wheeler-cargo-500x500-500x500.jpg",
         "https://img.freepik.com/premium-vector/semi-trailer-truck-logo_74218-339.jpg"
       ],
     ),
